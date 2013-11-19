@@ -35,6 +35,7 @@ grunt.initConfig({
         dir: 'www/js',
         salt: 'salt',
         root: 'com',
+        length: 6,
         quotes: 'double',
         exclude: [
             'lib/require.js',
@@ -63,6 +64,12 @@ This is the salt that will be used to hash each of your package paths and classe
 Type: `String`
 
 This is required. It must be set to the root folder where your packages reside. This does not currently support multiple root packages.
+
+#### options.length
+Type: `Integer`
+Default value: `6`
+
+The length of each hash. Allows a range of 3-16 characters. Higher numbers reduce chance of duplicates. The default value of 6 seems like a safe length for most projects.
 
 #### options.quotes
 Type: `String`
@@ -103,6 +110,8 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 This code does not currently have any unit tests. It could probably also use some better methodology to find and replace hashes, such as more advanced regex.
 
 I have tested this on a real project with multiple files and it works perfectly.
+
+TODO: Prevent duplicate hashes for the filename part (just in case).
 
 ## Release History
 0.1.0 - Initial Release

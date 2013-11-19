@@ -18,7 +18,8 @@ module.exports = function(grunt) {
     var options = this.options({
       salt: 'salt',
       exclude: [],
-      quotes: 'double'
+      quotes: 'double',
+      length: 6
     });
 
     if (!options.dir) 
@@ -39,6 +40,8 @@ module.exports = function(grunt) {
       grunt.fail.warn('invalid quotes value.');
       return;
     }
+
+    options.length = Math.max(3, Math.min(16, options.length));
 
     grunt.log.writeln('Hashing requirejs packages in ' + options.dir);
 
@@ -92,7 +95,7 @@ module.exports = function(grunt) {
               if (code > 96 && code < 103) break;
             }
             cleanPath += parts[j] + '/';
-            hashPath += hash.substr(c, 6) + '/';
+            hashPath += hash.substr(c, options.length) + '/';
           }
           cleanPath = cleanPath.substr(0, cleanPath.length - 1);
           hashPath = hashPath.substr(0, hashPath.length - 1);
