@@ -16,8 +16,20 @@ module.exports = function(grunt) {
   grunt.registerTask('requirejs_obfuscate', 'Obfuscate requirejs package names', function() {
     // Merge task-specific and/or target-specific options with these defaults.
     var options = this.options({
-      salt: 'salt'
+      salt: 'salt',
+      exclude: []
     });
+
+    if (!options.dir) 
+    {
+      grunt.fail.warn('dir is undefined');
+      return;
+    }
+    if (!options.root)
+    {
+      grunt.fail.warn('root is undefined.');
+      return;
+    }
 
     grunt.log.writeln('Hashing requirejs packages in ' + options.dir);
 
