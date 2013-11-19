@@ -49,7 +49,6 @@ grunt.initConfig({
 
 #### options.dir
 Type: `String`
-Default value: `'none'`
 
 This must be set to the folder where your compiled requirejs files are. From your require.js options.js file, combine dir and baseUrl without a trailing slash.
 
@@ -61,7 +60,6 @@ This is the salt that will be used to hash each of your package paths and classe
 
 #### options.root
 Type: `String`
-Default value: `'none'`
 
 This is required. It must be set to the root folder where your packages reside. This does not currently support multiple root packages.
 
