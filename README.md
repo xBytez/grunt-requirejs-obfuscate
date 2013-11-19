@@ -20,70 +20,82 @@ grunt.loadNpmTasks('grunt-requirejs-obfuscate');
 ## The "requirejs_obfuscate" task
 
 ### Overview
+This plugin will obfuscate your package path names consistently, even across multiple files (if you're using a multi-file requirejs site, for instance).
+
+It uses a salted SHA1 hash, truncated to 6 characters, and ensures the first character in any hash to be a letter.
+
+This plugin is meant to be run on compiled requirejs code. I recommend cleaning up the compile directory of unnecessary files before running this task using grunt-contrib-clean.
+
 In your project's Gruntfile, add a section named `requirejs_obfuscate` to the data object passed into `grunt.initConfig()`.
 
 ```js
 grunt.initConfig({
   requirejs_obfuscate: {
     options: {
-      // Task-specific options go here.
-    },
-    your_target: {
-      // Target-specific file lists and/or options go here.
-    },
+        dir: 'www/js',
+        salt: 'salt',
+        root: 'com',
+        exclude: [
+            'lib/require.js',
+            'lib/jquery-2.0.3.js'
+        ],
+        output: false
+    }
   },
 })
 ```
 
 ### Options
 
-#### options.separator
+#### options.dir
 Type: `String`
-Default value: `',  '`
 
-A string value that is used to do something with whatever.
+This must be set to the folder where your compiled requirejs files are. From your require.js options.js file, combine dir and baseUrl without a trailing slash.
 
-#### options.punctuation
+#### options.salt
 Type: `String`
-Default value: `'.'`
+Default value: `'salt'`
 
-A string value that is used to do something else with whatever else.
+This is the salt that will be used to hash each of your package paths and classes.
+
+#### options.root
+Type: `String`
+
+This is required. It must be set to the root folder where your packages reside. This does not currently support multiple root packages.
+
+#### options.exclude
+Type: `Array`
+Default value: `[]`
+
+This is an array of files to exclude from hashing. Most of the time you won't need to set this to anything, but you never know.
+
+#### options.output
+Type: `Boolean`
+Default value: `false`
+
+Set to true if you want to see each package path and their respective hashes output into the terminal.
+
 
 ### Usage Examples
 
 #### Default Options
-In this example, the default options are used to do something with whatever. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`
+In this example, your compiled files are in the "src/js" directory and your package root is "app".
 
 ```js
 grunt.initConfig({
-  requirejs_obfuscate: {
-    options: {},
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
-})
-```
-
-#### Custom Options
-In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
-
-```js
-grunt.initConfig({
-  requirejs_obfuscate: {
-    options: {
-      separator: ': ',
-      punctuation: ' !!!',
-    },
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
+  options: {
+      dir: 'src/js',
+      root: 'app'
+  }
 })
 ```
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
+This code does not currently have any unit tests. It could probably also use some better methodology to find and replace hashes, such as more advanced regex.
+
+I have tested this on a real project with multiple files and it works perfectly.
+
 ## Release History
-_(Nothing yet)_
+0.1.0 - Initial Release
