@@ -35,6 +35,7 @@ grunt.initConfig({
         dir: 'www/js',
         salt: 'salt',
         root: 'com',
+        quotes: 'double',
         exclude: [
             'lib/require.js',
             'lib/jquery-2.0.3.js'
@@ -62,6 +63,12 @@ This is the salt that will be used to hash each of your package paths and classe
 Type: `String`
 
 This is required. It must be set to the root folder where your packages reside. This does not currently support multiple root packages.
+
+#### options.quotes
+Type: `String`
+Default value: `'double'`
+
+Set this to whatever your package paths are wrapped with (single or double quotes). You can also set this to "'" or '"'. For example, uglify converts single quotes into double quotes, so if you are not uglifying your code, you might set this to "single" and if you are, you would leave this out or set it to "double".
 
 #### options.exclude
 Type: `Array`

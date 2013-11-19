@@ -17,7 +17,8 @@ module.exports = function(grunt) {
     // Merge task-specific and/or target-specific options with these defaults.
     var options = this.options({
       salt: 'salt',
-      exclude: []
+      exclude: [],
+      quotes: 'double'
     });
 
     if (!options.dir) 
@@ -28,6 +29,14 @@ module.exports = function(grunt) {
     if (!options.root)
     {
       grunt.fail.warn('root is undefined.');
+      return;
+    }
+
+    if (options.quotes == 'double' || options.quotes == '"') options.quotes = '"';
+    else if (options.quotes == 'single' || options.quotes == "'") options.quotes = "'";
+    else
+    {
+      grunt.fail.warn('invalid quotes value.');
       return;
     }
 
@@ -42,8 +51,8 @@ module.exports = function(grunt) {
         var hashed = false;
         for (var p in packages)
         {
-          src = src.split("'" + p + "'").join("'" + packages[p] + "'");
-          if (options.output) grunt.log.writeln("'" + p + "' > '" + packages[p] + "'");
+          src = src.split(options.quotes + p + options.quotes).join(options.quotes + packages[p] + options.quotes);
+          if (options.output) grunt.log.writeln('"' + p + '" > "' + packages[p] + '"');
           hashed = true;
         }
         if (hashed)
@@ -61,10 +70,10 @@ module.exports = function(grunt) {
     var packages = {};
     while (endIndex > -1)
     {
-      var startIndex = src.indexOf("'" + options.root + "/", endIndex);
+      var startIndex = src.indexOf(options.quotes + options.root + "/", endIndex);
       if (startIndex > -1)
       {
-        endIndex = src.indexOf("'", startIndex + 1);
+        endIndex = src.indexOf(options.quotes, startIndex + 1);
         var path = src.substring(startIndex + 1, endIndex);
         if (path.match(/.*\/.*/)) 
         {
