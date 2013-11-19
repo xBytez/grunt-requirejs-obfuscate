@@ -38,14 +38,12 @@ module.exports = function(grunt) {
       if (options.exclude.indexOf(abspath.substr(rootdir.length + 1)) == -1)
       {
         var src = grunt.file.read(abspath);
-        var paths = {};
-        setPaths(src, options, 'define', paths);
-        setPaths(src, options, 'require', paths);
+        var packages = getPackages(src, options);
         var hashed = false;
-        for (var p in paths)
+        for (var p in packages)
         {
-          src = src.split("'" + p + "'").join("'" + paths[p] + "'");
-          if (options.output) grunt.log.writeln("'" + p + "' > '" + paths[p] + "'");
+          src = src.split("'" + p + "'").join("'" + packages[p] + "'");
+          if (options.output) grunt.log.writeln("'" + p + "' > '" + packages[p] + "'");
           hashed = true;
         }
         if (hashed)
@@ -56,10 +54,11 @@ module.exports = function(grunt) {
       }
     });
   });
-  var setPaths = function(src, options, type, obj) 
+  var getPackages = function(src, options) 
   {
     var crypto = require('crypto');
     var endIndex = 0;
+    var packages = {};
     while (endIndex > -1)
     {
       var startIndex = src.indexOf("'" + options.root + "/", endIndex);
@@ -88,11 +87,11 @@ module.exports = function(grunt) {
           }
           cleanPath = cleanPath.substr(0, cleanPath.length - 1);
           hashPath = hashPath.substr(0, hashPath.length - 1);
-          obj[cleanPath] = hashPath;
+          packages[cleanPath] = hashPath;
         }
       }
       else endIndex = -1;
     }
-    return obj;
+    return packages;
   };
 };
