@@ -43,7 +43,7 @@ module.exports = function(grunt) {
 
     options.length = Math.max(3, Math.min(16, options.length));
 
-    grunt.log.writeln('Hashing requirejs packages in ' + options.dir);
+    grunt.log.writeln('Hashing requirejs packages in ' + options.dir + ' with salt = ' + options.salt);
 
     grunt.file.recurse(options.dir, function(abspath, rootdir, subdir, filename)
     {
