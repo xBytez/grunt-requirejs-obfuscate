@@ -55,7 +55,7 @@ module.exports = function(grunt) {
         for (var p in packages)
         {
           src = src.split(options.quotes + p + options.quotes).join(options.quotes + packages[p] + options.quotes);
-          if (options.output) grunt.log.writeln('"' + p + '" > "' + packages[p] + '"');
+          //if (options.output) grunt.log.writeln('"' + p + '" > "' + packages[p] + '"');
           hashed = true;
         }
         if (hashed)
