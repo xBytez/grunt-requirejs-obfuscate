@@ -13,7 +13,7 @@ module.exports = function(grunt) {
   // Please see the Grunt documentation for more information regarding task
   // creation: http://gruntjs.com/creating-tasks
 
-  grunt.registerTask('requirejs_obfuscate', 'Obfuscate requirejs package names', function() {
+  grunt.registerMultiTask('requirejs_obfuscate', 'Obfuscate requirejs package names', function() {
     // Merge task-specific and/or target-specific options with these defaults.
     var options = this.options({
       salt: 'salt',
