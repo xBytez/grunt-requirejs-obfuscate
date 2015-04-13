@@ -36,7 +36,7 @@ grunt.initConfig({
         salt: 'salt',
         root: 'com',
         length: 6,
-        quotes: 'double',
+        quotes: 'any',
         exclude: [
             'lib/require.js',
             'lib/jquery-2.0.3.js'
@@ -73,9 +73,9 @@ The length of each hash. Allows a range of 3-16 characters. Higher numbers reduc
 
 #### options.quotes
 Type: `String`
-Default value: `'double'`
+Default value: `'any'`
 
-Set this to whatever your package paths are wrapped with (single or double quotes). You can also set this to "'" or '"'. For example, uglify converts single quotes into double quotes, so if you are not uglifying your code, you might set this to "single" and if you are, you would leave this out or set it to "double".
+Set this to whatever your package paths are wrapped with (single or double quotes) if it is consistent. You can also set this to "'" or '"'. For example, uglify converts single quotes into double quotes, so if you are not uglifying your code, you might set this to "single" and if you are, you would leave this out or set it to "double".
 
 #### options.exclude
 Type: `Array`

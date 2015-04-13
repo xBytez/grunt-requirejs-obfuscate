@@ -18,7 +18,7 @@ module.exports = function(grunt) {
     var options = this.options({
       salt: 'salt',
       exclude: [],
-      quotes: 'double',
+      quotes: 'any',
       length: 6
     });
 
@@ -33,7 +33,8 @@ module.exports = function(grunt) {
       return;
     }
 
-    if (options.quotes == 'double' || options.quotes == '"') options.quotes = '"';
+    if(options.quotes == 'any' || options.quotes == "'|\"" || options.quotes == "\"|'") options.quotes = "'|\"";
+    else if (options.quotes == 'double' || options.quotes == '"') options.quotes = '"';
     else if (options.quotes == 'single' || options.quotes == "'") options.quotes = "'";
     else
     {
@@ -54,7 +55,8 @@ module.exports = function(grunt) {
         var hashed = false;
         for (var p in packages)
         {
-          src = src.split(options.quotes + p + options.quotes).join(options.quotes + packages[p] + options.quotes);
+          var pattern = new RegExp('(' + options.quotes + ')' + p + '\\1', 'g');
+          src = src.replace(pattern, '$1' + packages[p] + '$1');
           //if (options.output) grunt.log.writeln('"' + p + '" > "' + packages[p] + '"');
           hashed = true;
         }
