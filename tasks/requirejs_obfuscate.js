@@ -62,7 +62,7 @@ module.exports = function(grunt) {
         }
         if (hashed)
         {
-          grunt.file.write(abspath, src, 'utf8');
+          grunt.file.write(abspath, src, {encoding:'utf8'});
           grunt.log.writeln('File ' + abspath + ' hashed');
         }
       }
