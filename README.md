@@ -115,5 +115,9 @@ TODO: Prevent duplicate hashes for the filename part (just in case).
 
 ## Release History
 0.1.0 - Initial Release
+
 0.1.2 - Added some extra options
-0.1.3 - Remove package debug loggin
+
+0.1.3 - Remove package debug logging
+
+0.2.0 - Add compatibility with Grunt 1.x
