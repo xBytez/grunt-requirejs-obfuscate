@@ -5,3 +5,6 @@ Thumbs.db
 
 # NPM Modules
 node_modules
+
+# NPM log file
+npm-debug.log
